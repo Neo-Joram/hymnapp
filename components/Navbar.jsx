@@ -1,9 +1,17 @@
 import React from "react";
 import { TouchableOpacity, View, StyleSheet, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Navbar = () => {
   const navigation = useNavigation();
+
+  const getCurrentSection = () => {
+    const currentState = navigation.getState();
+    const currentSection =
+      currentState.routes[currentState.routes.length - 1].name;
+    return currentSection;
+  };
 
   return (
     <View style={styles.navbar}>
@@ -11,19 +19,43 @@ const Navbar = () => {
         style={styles.linkDiv}
         onPress={() => navigation.navigate("Home")}
       >
-        <Text style={styles.link}>Home</Text>
+        <MaterialCommunityIcons
+          name="home"
+          size={25}
+          color="black"
+          style={getCurrentSection() === "Home" && styles.link}
+        />
+        <Text style={getCurrentSection() === "Home" && styles.link}>Home</Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.linkDiv}
         onPress={() => navigation.navigate("Calculator")}
       >
-        <Text style={styles.link}>Calculator</Text>
+        <MaterialCommunityIcons
+          name="calculator"
+          size={25}
+          color="black"
+          style={getCurrentSection() === "Calculator" && styles.link}
+        />
+        <Text style={getCurrentSection() === "Calculator" && styles.link}>
+          Calculator
+        </Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.linkDiv}
         onPress={() => navigation.navigate("Contact Us")}
       >
-        <Text style={styles.link}>Contact Us</Text>
+        <MaterialCommunityIcons
+          name="account-circle"
+          size={25}
+          color="black"
+          style={getCurrentSection() === "Contact Us" && styles.link}
+        />
+        <Text style={getCurrentSection() === "Contact Us" && styles.link}>
+          Contact Us
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -47,8 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   link: {
-    fontSize: 18,
-    color: "#007AFF",
+    color: "cornflowerblue",
   },
 });
 

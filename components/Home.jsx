@@ -9,7 +9,6 @@ const Home = () => {
   return (
     <View style={styles.home}>
       <Text>Welcome home</Text>
-      <Button title="Open drawer" onPress={() => drawer.current.openDrawer()} />
       <Navbar />
     </View>
   );

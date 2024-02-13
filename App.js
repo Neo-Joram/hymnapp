@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Platform, SafeAreaView, StyleSheet } from "react-native";
-import { Layout } from "./components";
+import Layout from "./components/Layout";
 import { MyProvider } from "./StateContext";
 
 export default function App() {
