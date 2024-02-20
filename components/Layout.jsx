@@ -15,19 +15,29 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const Stack = createStackNavigator();
 
 const Layout = () => {
-  const { drawer } = useContext(MyContext);
+  const { drawer, theme, toggleTheme } = useContext(MyContext);
 
   const navigationView = () => (
-    <View style={styles.navigationContainer}>
+    <View
+      style={
+        theme === "light"
+          ? styles.navigationContainer
+          : styles.navigationContainerDark
+      }
+    >
       <View style={styles.top}>
         <View style={styles.logo}>
           <MaterialCommunityIcons
             name="album"
             size={40}
-            color="black"
+            color={theme === "light" ? "black" : "white"}
             onPress={() => drawer.current.openDrawer()}
           />
-          <Text style={styles.logoText}>Neo Mobile</Text>
+          <Text
+            style={theme === "light" ? styles.logoText : styles.logoTextDark}
+          >
+            Neo Mobile
+          </Text>
         </View>
 
         <View style={styles.menu}>
@@ -35,15 +45,27 @@ const Layout = () => {
             style={styles.li}
             // onPress={() => navigation.navigate("Home")}
           >
-            <MaterialCommunityIcons name="home" size={25} color="black" />
-            <Text style={styles.a}>Home</Text>
+            <MaterialCommunityIcons
+              name="home"
+              size={25}
+              color={theme === "light" ? "black" : "white"}
+            />
+            <Text style={theme === "light" ? styles.a : styles.aDark}>
+              Home
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.li}
             // onPress={() => navigation.navigate("Calculator")}
           >
-            <MaterialCommunityIcons name="calculator" size={25} color="black" />
-            <Text style={styles.a}>Calculator</Text>
+            <MaterialCommunityIcons
+              name="calculator"
+              size={25}
+              color={theme === "light" ? "black" : "white"}
+            />
+            <Text style={theme === "light" ? styles.a : styles.aDark}>
+              Calculator
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.li}
@@ -52,24 +74,52 @@ const Layout = () => {
             <MaterialCommunityIcons
               name="account-circle"
               size={25}
-              color="black"
+              color={theme === "light" ? "black" : "white"}
             />
-            <Text style={styles.a}>Contact Us</Text>
+            <Text style={theme === "light" ? styles.a : styles.aDark}>
+              Contact Us
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      <View style={styles.account}>
-        <MaterialCommunityIcons
-          name="account-circle"
-          size={50}
-          color="black"
-          onPress={() => drawer.current.openDrawer()}
-        />
-        <View style={styles.accountText}>
-          <Text style={styles.accountNames}>John Doe</Text>
-          <Text style={styles.accountRole}>Manager</Text>
+      <View style={styles.bottom}>
+        <View style={styles.account}>
+          <MaterialCommunityIcons
+            name="account-circle"
+            size={50}
+            color={theme === "light" ? "black" : "white"}
+            onPress={() => drawer.current.openDrawer()}
+          />
+          <View
+            style={
+              theme === "light" ? styles.accountText : styles.accountTextDark
+            }
+          >
+            <Text
+              style={
+                theme === "light"
+                  ? styles.accountNames
+                  : styles.accountNamesDark
+              }
+            >
+              John Doe
+            </Text>
+            <Text
+              style={
+                theme === "light" ? styles.accountRole : styles.accountRoleDark
+              }
+            >
+              Manager
+            </Text>
+          </View>
         </View>
+        <MaterialCommunityIcons
+          name="brightness-4"
+          size={30}
+          color={theme === "light" ? "black" : "white"}
+          onPress={() => toggleTheme()}
+        />
       </View>
     </View>
   );
@@ -124,10 +174,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 16,
   },
+  containerDark: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 16,
+    backgroundColor: "black",
+    color: "white",
+  },
   navigationContainer: {
     flex: 1,
     padding: 16,
     backgroundColor: "#ecf0f1",
+    justifyContent: "space-between",
+  },
+  navigationContainerDark: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: "black",
     justifyContent: "space-between",
   },
   top: {},
@@ -140,6 +204,11 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 26,
     fontWeight: "bold",
+  },
+  logoTextDark: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "white",
   },
 
   menu: {
@@ -162,6 +231,13 @@ const styles = StyleSheet.create({
   a: {
     color: "darkblue",
   },
+  aDark: { color: "white" },
+  bottom: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   account: {
     display: "flex",
     flexDirection: "row",
@@ -176,6 +252,17 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "600",
   },
+  accountTextDark: {
+    display: "flex",
+    flexDirection: "column",
+    color: "white",
+  },
+  accountNamesDark: {
+    fontSize: 17,
+    fontWeight: "600",
+    color: "white",
+  },
+  accountRoleDark: { color: "white" },
 });
 
 export default Layout;
